@@ -133,7 +133,7 @@
     return;
   }
 
-  [adInstance setState:GADMAdapterIronSourceInstanceStateLocked];
+  [adInstance setState:GADMAdapterIronSourceInstanceStateShowing];
   id<GADMediationRewardedAdEventDelegate> eventDelegate = [adInstance getRewardedAdEventDelegate];
   if (eventDelegate == nil) {
     return;

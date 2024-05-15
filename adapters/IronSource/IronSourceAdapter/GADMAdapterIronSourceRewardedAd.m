@@ -155,8 +155,23 @@ static GADMAdapterIronSourceRewardedAdDelegate *rewardedDelegate = nil;
 #pragma mark - Utils methods
 
 - (BOOL)canLoadRewardedVideoInstance {
-  return ![[self getState] isEqualToString:GADMAdapterIronSourceInstanceStateLocked];
-}
+    GADMAdapterIronSourceRewardedAd *adInstance =
+        [GADMAdapterIronSourceRewardedAd delegateForKey:self.instanceID];
+    if (adInstance == nil) {
+      return true;
+    }
+    NSString *currentInstanceState =[adInstance getState];
+    if ([[self getState] isEqualToString:GADMAdapterIronSourceInstanceStateLocked]) {
+        return false;
+    }
+    
+    if ([currentInstanceState isEqualToString:GADMAdapterIronSourceInstanceStateLocked] || [currentInstanceState isEqualToString:GADMAdapterIronSourceInstanceStateShowing]){
+        return false;
+    }
+        
+    
+    return true;
+ }
 
 #pragma mark - GADMediationRewardedAd
 
