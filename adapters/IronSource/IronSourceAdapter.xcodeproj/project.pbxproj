@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -34,7 +34,17 @@
 /* Begin PBXBuildFile section */
 		153631E72C71FA4500D191EA /* GADMAdapterIronSourceRtbInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 153631E62C71FA4500D191EA /* GADMAdapterIronSourceRtbInterstitialAd.m */; };
 		153631EB2C71FA8600D191EA /* GADMAdapterIronSourceRtbRewardedAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 153631EA2C71FA8600D191EA /* GADMAdapterIronSourceRtbRewardedAd.m */; };
+		15BC8E372C74985900A97EF7 /* IronSourceAdapterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC8E362C7492A600A97EF7 /* IronSourceAdapterTests.m */; };
+		15BC8E392C7499A100A97EF7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15BC8E382C7499A100A97EF7 /* XCTest.framework */; };
+		15BC8E4E2C75CBF800A97EF7 /* ISAdaptersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BC8E4D2C75CBF800A97EF7 /* ISAdaptersTests.m */; };
+		15BC8E4F2C75CBF800A97EF7 /* libAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DFABB1D1DA8682C00322E02 /* libAdapter.a */; };
+		15BC8E552C75CC2500A97EF7 /* IronSourceAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD00C4412B87CBBC007C85F3 /* IronSourceAdapter.framework */; platformFilter = ios; };
+		15BC8E562C75CD6900A97EF7 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15BC8E382C7499A100A97EF7 /* XCTest.framework */; platformFilter = ios; };
+		15BC8E582C75CE9F00A97EF7 /* OCMock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15BC8E572C75CE9F00A97EF7 /* OCMock.framework */; };
+		15BC8E5B2C75D0F700A97EF7 /* IronSourceAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BC8E5A2C75D0F700A97EF7 /* IronSourceAdapterTests.swift */; };
 		35F410631FB4D85B000B379C /* IronSourceAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 35F410611FB4D85B000B379C /* IronSourceAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4B4A8004547E89FFEBB198E8 /* Pods_Adapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E46163069ADD30B13EE97A8D /* Pods_Adapter.framework */; };
+		D3143850B477FAC11A59E030 /* Pods_IronSourceAdapter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BAFD982E32E038444269D52 /* Pods_IronSourceAdapter.framework */; };
 		EF11BA9A2AA9F12F00E24BBD /* GADMAdapterIronSource.m in Sources */ = {isa = PBXBuildFile; fileRef = EF11BA852AA9F12F00E24BBD /* GADMAdapterIronSource.m */; };
 		EF11BA9B2AA9F12F00E24BBD /* GADMAdapterIronSourceRewarded.m in Sources */ = {isa = PBXBuildFile; fileRef = EF11BA862AA9F12F00E24BBD /* GADMAdapterIronSourceRewarded.m */; };
 		EF11BA9C2AA9F12F00E24BBD /* GADMAdapterIronSourceRewardedAdDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EF11BA872AA9F12F00E24BBD /* GADMAdapterIronSourceRewardedAdDelegate.h */; };
@@ -66,6 +76,13 @@
 			remoteGlobalIDString = 00DD266422F10AC60039C1D4;
 			remoteInfo = ValidateSourceCode;
 		};
+		15BC8E502C75CBF800A97EF7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7DFABB151DA8682C00322E02 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7DFABB1C1DA8682C00322E02;
+			remoteInfo = Adapter;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,16 +104,29 @@
 		153631E82C71FA6300D191EA /* GADMAdapterIronSourceRtbInterstitialAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GADMAdapterIronSourceRtbInterstitialAd.h; sourceTree = "<group>"; };
 		153631E92C71FA7B00D191EA /* GADMAdapterIronSourceRtbRewardedAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GADMAdapterIronSourceRtbRewardedAd.h; sourceTree = "<group>"; };
 		153631EA2C71FA8600D191EA /* GADMAdapterIronSourceRtbRewardedAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GADMAdapterIronSourceRtbRewardedAd.m; sourceTree = "<group>"; };
+		15BC8E362C7492A600A97EF7 /* IronSourceAdapterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IronSourceAdapterTests.m; sourceTree = "<group>"; };
+		15BC8E382C7499A100A97EF7 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Platforms/iPhoneOS.platform/Developer/Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		15BC8E4B2C75CBF800A97EF7 /* ISAdaptersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ISAdaptersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		15BC8E4D2C75CBF800A97EF7 /* ISAdaptersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ISAdaptersTests.m; sourceTree = "<group>"; };
+		15BC8E572C75CE9F00A97EF7 /* OCMock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = OCMock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15BC8E592C75D0F600A97EF7 /* ISAdaptersTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ISAdaptersTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		15BC8E5A2C75D0F700A97EF7 /* IronSourceAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronSourceAdapterTests.swift; sourceTree = "<group>"; };
 		350BFE00202D074F00C76B52 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		350BFE01202D074F00C76B52 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		35F410611FB4D85B000B379C /* IronSourceAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IronSourceAdapter.h; sourceTree = "<group>"; };
 		35F410621FB4D85B000B379C /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		765DBC5E1B9745642EC1CC6D /* Pods-Adapter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adapter.release.xcconfig"; path = "Target Support Files/Pods-Adapter/Pods-Adapter.release.xcconfig"; sourceTree = "<group>"; };
 		7D46CFDF1DB6B7CC0050F612 /* Adapter.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Adapter.xcconfig; sourceTree = "<group>"; };
 		7D6A68A31DB7ED230001E48B /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		7D6A68A41DB7ED310001E48B /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		7D9552B11DC006E5005DCE8D /* Script_Framework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script_Framework.sh; sourceTree = "<group>"; };
 		7DFABB1D1DA8682C00322E02 /* libAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC4BE23885A8D3A738F9918 /* Pods-IronSourceAdapter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IronSourceAdapter.release.xcconfig"; path = "Target Support Files/Pods-IronSourceAdapter/Pods-IronSourceAdapter.release.xcconfig"; sourceTree = "<group>"; };
+		914ED4241414A57D52BA574D /* Pods-Adapter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Adapter.debug.xcconfig"; path = "Target Support Files/Pods-Adapter/Pods-Adapter.debug.xcconfig"; sourceTree = "<group>"; };
+		9BAFD982E32E038444269D52 /* Pods_IronSourceAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IronSourceAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E429C978CEE290B509F6EFA /* Pods-IronSourceAdapter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IronSourceAdapter.debug.xcconfig"; path = "Target Support Files/Pods-IronSourceAdapter/Pods-IronSourceAdapter.debug.xcconfig"; sourceTree = "<group>"; };
 		AD00C4412B87CBBC007C85F3 /* IronSourceAdapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = IronSourceAdapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E46163069ADD30B13EE97A8D /* Pods_Adapter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Adapter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF11BA852AA9F12F00E24BBD /* GADMAdapterIronSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GADMAdapterIronSource.m; sourceTree = "<group>"; };
 		EF11BA862AA9F12F00E24BBD /* GADMAdapterIronSourceRewarded.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GADMAdapterIronSourceRewarded.m; sourceTree = "<group>"; };
 		EF11BA872AA9F12F00E24BBD /* GADMAdapterIronSourceRewardedAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdapterIronSourceRewardedAdDelegate.h; sourceTree = "<group>"; };
@@ -121,10 +151,22 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		15BC8E482C75CBF800A97EF7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15BC8E582C75CE9F00A97EF7 /* OCMock.framework in Frameworks */,
+				15BC8E562C75CD6900A97EF7 /* XCTest.framework in Frameworks */,
+				15BC8E552C75CC2500A97EF7 /* IronSourceAdapter.framework in Frameworks */,
+				15BC8E4F2C75CBF800A97EF7 /* libAdapter.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7DFABB1A1DA8682C00322E02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B4A8004547E89FFEBB198E8 /* Pods_Adapter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,12 +174,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15BC8E392C7499A100A97EF7 /* XCTest.framework in Frameworks */,
+				D3143850B477FAC11A59E030 /* Pods_IronSourceAdapter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15BC8E4C2C75CBF800A97EF7 /* ISAdaptersTests */ = {
+			isa = PBXGroup;
+			children = (
+				15BC8E4D2C75CBF800A97EF7 /* ISAdaptersTests.m */,
+				15BC8E5A2C75D0F700A97EF7 /* IronSourceAdapterTests.swift */,
+				15BC8E592C75D0F600A97EF7 /* ISAdaptersTests-Bridging-Header.h */,
+			);
+			path = ISAdaptersTests;
+			sourceTree = "<group>";
+		};
+		2835F82B3AAB0B0F54652BC8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				914ED4241414A57D52BA574D /* Pods-Adapter.debug.xcconfig */,
+				765DBC5E1B9745642EC1CC6D /* Pods-Adapter.release.xcconfig */,
+				9E429C978CEE290B509F6EFA /* Pods-IronSourceAdapter.debug.xcconfig */,
+				8EC4BE23885A8D3A738F9918 /* Pods-IronSourceAdapter.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2AEEDF671F715A83BAD22778 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				15BC8E572C75CE9F00A97EF7 /* OCMock.framework */,
+				15BC8E382C7499A100A97EF7 /* XCTest.framework */,
+				E46163069ADD30B13EE97A8D /* Pods_Adapter.framework */,
+				9BAFD982E32E038444269D52 /* Pods_IronSourceAdapter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		35F4105F1FB4D83B000B379C /* Public */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,13 +286,17 @@
 		7DFABB141DA8682C00322E02 = {
 			isa = PBXGroup;
 			children = (
+				15BC8E362C7492A600A97EF7 /* IronSourceAdapterTests.m */,
 				350BFE00202D074F00C76B52 /* README.md */,
 				350BFE01202D074F00C76B52 /* CHANGELOG.md */,
 				7D72B8C11DB97C10006EAE11 /* IronSourceAdapter */,
 				35F4105F1FB4D83B000B379C /* Public */,
 				7DE821BD1DB04B5000AA08CF /* BuildScript */,
 				7D46CFDE1DB6B76E0050F612 /* Configuration */,
+				15BC8E4C2C75CBF800A97EF7 /* ISAdaptersTests */,
 				7DFABB1E1DA8682C00322E02 /* Products */,
+				2835F82B3AAB0B0F54652BC8 /* Pods */,
+				2AEEDF671F715A83BAD22778 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,6 +305,7 @@
 			children = (
 				7DFABB1D1DA8682C00322E02 /* libAdapter.a */,
 				AD00C4412B87CBBC007C85F3 /* IronSourceAdapter.framework */,
+				15BC8E4B2C75CBF800A97EF7 /* ISAdaptersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,10 +342,29 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		15BC8E4A2C75CBF800A97EF7 /* ISAdaptersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 15BC8E542C75CBF800A97EF7 /* Build configuration list for PBXNativeTarget "ISAdaptersTests" */;
+			buildPhases = (
+				15BC8E472C75CBF800A97EF7 /* Sources */,
+				15BC8E482C75CBF800A97EF7 /* Frameworks */,
+				15BC8E492C75CBF800A97EF7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				15BC8E512C75CBF800A97EF7 /* PBXTargetDependency */,
+			);
+			name = ISAdaptersTests;
+			productName = ISAdaptersTests;
+			productReference = 15BC8E4B2C75CBF800A97EF7 /* ISAdaptersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7DFABB1C1DA8682C00322E02 /* Adapter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7DFABB261DA8682C00322E02 /* Build configuration list for PBXNativeTarget "Adapter" */;
 			buildPhases = (
+				1C8E878D4F38C1442B2B3672 /* [CP] Check Pods Manifest.lock */,
 				7DFABB191DA8682C00322E02 /* Sources */,
 				7DFABB1A1DA8682C00322E02 /* Frameworks */,
 				7DFABB1B1DA8682C00322E02 /* CopyFiles */,
@@ -284,6 +384,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD00C4472B87CBBC007C85F3 /* Build configuration list for PBXNativeTarget "IronSourceAdapter" */;
 			buildPhases = (
+				0A1A843F475B7383F46E26B1 /* [CP] Check Pods Manifest.lock */,
 				AD00C43C2B87CBBC007C85F3 /* Headers */,
 				AD00C43D2B87CBBC007C85F3 /* Sources */,
 				AD00C43E2B87CBBC007C85F3 /* Frameworks */,
@@ -307,6 +408,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Google;
 				TargetAttributes = {
+					15BC8E4A2C75CBF800A97EF7 = {
+						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
+					};
 					7D1B6CA21DC2ACF900D8CABF = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
@@ -336,11 +441,19 @@
 				7D1B6CA21DC2ACF900D8CABF /* Framework */,
 				00DD266422F10AC60039C1D4 /* ValidateSourceCode */,
 				AD00C4402B87CBBC007C85F3 /* IronSourceAdapter */,
+				15BC8E4A2C75CBF800A97EF7 /* ISAdaptersTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		15BC8E492C75CBF800A97EF7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AD00C43F2B87CBBC007C85F3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -365,6 +478,50 @@
 			shellPath = /bin/sh;
 			shellScript = "set -o errexit\nset -o nounset\nset -o xtrace\n\nbash \"${SRCROOT}/BuildScript/Script_Validate.sh\"\n";
 		};
+		0A1A843F475B7383F46E26B1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IronSourceAdapter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1C8E878D4F38C1442B2B3672 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Adapter-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D1B6CA61DC2AD7700D8CABF /* Framework Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -382,6 +539,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		15BC8E472C75CBF800A97EF7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15BC8E5B2C75D0F700A97EF7 /* IronSourceAdapterTests.swift in Sources */,
+				15BC8E4E2C75CBF800A97EF7 /* ISAdaptersTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7DFABB191DA8682C00322E02 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -403,6 +569,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15BC8E372C74985900A97EF7 /* IronSourceAdapterTests.m in Sources */,
 				153631E72C71FA4500D191EA /* GADMAdapterIronSourceRtbInterstitialAd.m in Sources */,
 				153631EB2C71FA8600D191EA /* GADMAdapterIronSourceRtbRewardedAd.m in Sources */,
 			);
@@ -415,6 +582,11 @@
 			isa = PBXTargetDependency;
 			target = 00DD266422F10AC60039C1D4 /* ValidateSourceCode */;
 			targetProxy = 00DD266922F10ADF0039C1D4 /* PBXContainerItemProxy */;
+		};
+		15BC8E512C75CBF800A97EF7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7DFABB1C1DA8682C00322E02 /* Adapter */;
+			targetProxy = 15BC8E502C75CBF800A97EF7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -430,6 +602,116 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		15BC8E522C75CBF800A97EF7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Drop_Framework_And_Headers/$(PLATFORM_NAME)/**\"",
+					"\"$Pods/OCMock\"",
+					Pods/OCMock,
+					"$(SRCROOT)/Pods/OCMock",
+					"$(SRCROOT)/Pods.OCMock",
+					"$(SRCROOT)/Pods/OCMock",
+					"df$(SRCROOT)/Pods/OCMock",
+					"df$(SRCROOT)/Pods/OCMock",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Drop_Framework_And_Headers/$(PLATFORM_NAME)/**\"",
+					"$(SRCROOT)/Pods/Headers/Public/**",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"\"$(SRCROOT)/Pods/Headers/Public/**\"/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ironsource.ISAdaptersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "ISAdaptersTests/ISAdaptersTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		15BC8E532C75CBF800A97EF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Drop_Framework_And_Headers/$(PLATFORM_NAME)/**\"",
+					"\"$Pods/OCMock\"",
+					Pods/OCMock,
+					"$(SRCROOT)/Pods/OCMock",
+					"$(SRCROOT)/Pods.OCMock",
+					"\"$(SRCROOT)/Pods/OCMock\"",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Drop_Framework_And_Headers/$(PLATFORM_NAME)/**\"",
+					"$(SRCROOT)/Pods/Headers/Public/**",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"$(SRCROOT)/Pods/Headers/Public",
+					"\"$(SRCROOT)/Pods/Headers/Public/**\"/**",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ironsource.ISAdaptersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "ISAdaptersTests/ISAdaptersTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -543,8 +825,14 @@
 		};
 		7DFABB271DA8682C00322E02 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 914ED4241414A57D52BA574D /* Pods-Adapter.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Drop_Framework_And_Headers/**\"",
+				);
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "$(VALID_ARCHS)";
 			};
 			name = Debug;
@@ -553,13 +841,19 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7D6A68A41DB7ED310001E48B /* Release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Drop_Framework_And_Headers/**\"",
+				);
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				VALID_ARCHS = "$(VALID_ARCHS)";
 			};
 			name = Release;
 		};
 		AD00C4452B87CBBC007C85F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E429C978CEE290B509F6EFA /* Pods-IronSourceAdapter.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -586,7 +880,11 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Google. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = "$(inherited)";
@@ -609,6 +907,7 @@
 		};
 		AD00C4462B87CBBC007C85F3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EC4BE23885A8D3A738F9918 /* Pods-IronSourceAdapter.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -635,7 +934,11 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Google. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = "$(inherited)";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACH_O_TYPE = staticlib;
 				MARKETING_VERSION = "$(inherited)";
@@ -663,6 +966,15 @@
 			buildConfigurations = (
 				00DD266722F10AC60039C1D4 /* Debug */,
 				00DD266822F10AC60039C1D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		15BC8E542C75CBF800A97EF7 /* Build configuration list for PBXNativeTarget "ISAdaptersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				15BC8E522C75CBF800A97EF7 /* Debug */,
+				15BC8E532C75CBF800A97EF7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
