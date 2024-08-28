@@ -34,3 +34,5 @@ static InstanceState const GADMAdapterIronSourceInstanceStateShowing = @"SHOWING
 
 // IronSource mediation adapter error domain.
 static NSString *const GADMAdapterIronSourceErrorDomain = @"com.google.mediation.IronSource";
+
+static NSString *const GADMAdapterIronSourceWatermark = @"watermark";
