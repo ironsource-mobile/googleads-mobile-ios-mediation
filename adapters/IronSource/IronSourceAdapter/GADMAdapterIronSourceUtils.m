@@ -104,4 +104,41 @@ NSError *_Nonnull GADMAdapterIronSourceErrorWithCodeAndDescription(
   }
 }
 
++ (NSArray<ISAAdFormat *> *_Nullable)adFormatsToInitializeForAdUnits:(nonnull NSSet *)adUnits
+{
+    NSMutableArray<ISAAdFormat *> *adFormatsToInitialize = [NSMutableArray array];
+    
+    if ([adUnits member:IS_INTERSTITIAL] != nil)
+    {
+        ISAAdFormat *interstitial = [[ISAAdFormat alloc] initWithAdFormatType: ISAAdFormatTypeInterstitial];
+        [adFormatsToInitialize addObject: interstitial];
+    }
+    
+    if ([adUnits member:IS_REWARDED_VIDEO] != nil)
+    {
+        ISAAdFormat *rewarded = [[ISAAdFormat alloc] initWithAdFormatType: ISAAdFormatTypeRewarded];
+        [adFormatsToInitialize addObject: rewarded];
+    }
+    
+    if ([adUnits member:IS_BANNER] != nil)
+    {
+        ISAAdFormat *banner = [[ISAAdFormat alloc] initWithAdFormatType: ISAAdFormatTypeBanner];
+        [adFormatsToInitialize addObject: banner];
+    }
+    
+    return [adFormatsToInitialize copy];
+}
+
++ (nonnull NSMutableDictionary<NSString *, NSString *> *)getExtraParamsWithWatermark:(nullable NSData *)watermarkData {
+    NSMutableDictionary<NSString *, NSString *> *extraParams = [[NSMutableDictionary alloc] init];
+    
+    if (watermarkData != nil) {
+        NSString *watermarkString = [watermarkData base64EncodedStringWithOptions:0];
+        if (watermarkString){
+            [extraParams setObject:watermarkString forKey:@"watermark"];
+        }
+    }
+    return extraParams;
+}
+
 @end

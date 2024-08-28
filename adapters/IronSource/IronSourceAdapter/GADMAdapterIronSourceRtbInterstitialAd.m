@@ -49,12 +49,6 @@
 #pragma mark InstanceMap and Delegate initialization
 // The class-level delegate handling callbacks for all instances
 
-+ (void)initialize {
-    // interstitialAdapterDelegates = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsCopyIn
-    //                                                     // valueOptions:NSPointerFunctionsWeakMemory];
-    // interstitialDelegate = [[IronSourceRtbInterstitialAdDelegate alloc] init];
-    
-}
 
 #pragma mark - Load functionality
 
@@ -87,13 +81,9 @@
     }
     
     NSString *bidResponse = adConfiguration.bidResponse;
+    NSMutableDictionary<NSString *, NSString *> *extraParams= [GADMAdapterIronSourceUtils getExtraParamsWithWatermark:adConfiguration.watermark];
     
-    NSString *watermarkString = [[NSString alloc] initWithData:adConfiguration.watermark encoding:NSUTF8StringEncoding];
-    
-    [IronSource setMetaDataWithKey:@"google_water_mark" value:watermarkString];
-    
-    
-    ISAInterstitialAdRequest *adRequest = [[[ISAInterstitialAdRequestBuilder alloc] initWithInstanceId: self.instanceID adm: bidResponse] build];
+    ISAInterstitialAdRequest *adRequest = [[[[ISAInterstitialAdRequestBuilder alloc] initWithInstanceId: self.instanceID adm: bidResponse]withExtraParams:extraParams] build];
     
     [ISAInterstitialAdLoader loadAdWithAdRequest: adRequest delegate: self];
 }
@@ -104,16 +94,18 @@
     [GADMAdapterIronSourceUtils
      onLog:[NSString stringWithFormat:@"Showing IronSource interstitial ad for Instance ID: %@",
             self.instanceID]];
+    id<GADMediationInterstitialAdEventDelegate> interstitialDelegate = self.interstitialAdEventDelegate;
+
     if (!self.biddingISAInterstitialAd){
-        if (self.interstitialAdEventDelegate){
+        if (interstitialDelegate){
             NSError *error = GADMAdapterIronSourceErrorWithCodeAndDescription(
                                                                               GADMAdapterIronSourceErrorFailedToShow,
                                                                               @"the ad is nil");
-            [self.interstitialAdEventDelegate didFailToPresentWithError:error];
+            [interstitialDelegate didFailToPresentWithError:error];
         }
         [GADMAdapterIronSourceUtils
-            onLog:[NSString stringWithFormat:@"Failed to show due to ad not loaded, for Instance ID: %@",
-                                             self.instanceID]];
+         onLog:[NSString stringWithFormat:@"Failed to show due to ad not loaded, for Instance ID: %@",
+                self.instanceID]];
         return;
     }
     
@@ -123,15 +115,21 @@
 
 
 - (void)interstitialAd:(nonnull ISAInterstitialAd *)interstitialAd didFailToShowWithError:(nonnull NSError *)error {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.interstitialAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ with error= %@", NSStringFromSelector(_cmd), error.localizedDescription]];
+    id<GADMediationInterstitialAdEventDelegate> interstitialDelegate = self.interstitialAdEventDelegate;
+    if (!interstitialDelegate){
         return;
     }
-    [self.interstitialAdEventDelegate didFailToPresentWithError:error];
+    [interstitialDelegate didFailToPresentWithError:error];
 }
 
 - (void)interstitialAdDidLoad:(nonnull ISAInterstitialAd *)interstitialAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            interstitialAd.adInfo.instanceId,
+            interstitialAd.adInfo.adId]];
+    
     self.biddingISAInterstitialAd = interstitialAd;
     if (!self.interstitalAdLoadCompletionHandler){
         return;
@@ -141,7 +139,9 @@
 }
 
 - (void)interstitialAdDidFailToLoadWithError:(nonnull NSError *)error {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ with error= %@ ", NSStringFromSelector(_cmd),
+            error.localizedDescription]];
     if (!self.interstitalAdLoadCompletionHandler){
         return;
     }
@@ -150,18 +150,26 @@
 }
 
 - (void)interstitialAdDidShow:(nonnull ISAInterstitialAd *)interstitialAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.interstitialAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            interstitialAd.adInfo.instanceId,
+            interstitialAd.adInfo.adId]];
+    id<GADMediationInterstitialAdEventDelegate> interstitialDelegate = self.interstitialAdEventDelegate;
+    if (!interstitialDelegate){
         return;
     }
-    [self.interstitialAdEventDelegate willPresentFullScreenView];
-    [self.interstitialAdEventDelegate reportImpression];
+    [interstitialDelegate willPresentFullScreenView];
+    [interstitialDelegate reportImpression];
     
 }
 
 - (void)interstitialAdDidClick:(nonnull ISAInterstitialAd *)interstitialAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.interstitialAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            interstitialAd.adInfo.instanceId,
+            interstitialAd.adInfo.adId]];
+    id<GADMediationInterstitialAdEventDelegate> interstitialDelegate = self.interstitialAdEventDelegate;
+    if (!interstitialDelegate){
         return;
     }
     
@@ -169,12 +177,16 @@
 }
 
 - (void)interstitialAdDidDismiss:(nonnull ISAInterstitialAd *)interstitialAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.interstitialAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            interstitialAd.adInfo.instanceId,
+            interstitialAd.adInfo.adId]];
+    id<GADMediationInterstitialAdEventDelegate> interstitialDelegate = self.interstitialAdEventDelegate;
+    if (!interstitialDelegate){
         return;
     }
-    [self.interstitialAdEventDelegate willDismissFullScreenView];
-    [self.interstitialAdEventDelegate didDismissFullScreenView];
+    [interstitialDelegate willDismissFullScreenView];
+    [interstitialDelegate didDismissFullScreenView];
 }
 
 

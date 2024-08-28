@@ -49,4 +49,8 @@ NSError *_Nonnull GADMAdapterIronSourceErrorWithCodeAndDescription(
 /// Sets the watermark using the ad configuration.
 + (void)setWatermarkWithAdConfiguration:(nonnull GADMediationAdConfiguration *)adConfiguration;
 
++ (NSArray<ISAAdFormat *> *_Nullable)adFormatsToInitializeForAdUnits:(nonnull NSSet *)adUnits;
+
++ (nonnull NSMutableDictionary<NSString *, NSString *> *)getExtraParamsWithWatermark:(nullable NSData *)watermarkData;
+
 @end

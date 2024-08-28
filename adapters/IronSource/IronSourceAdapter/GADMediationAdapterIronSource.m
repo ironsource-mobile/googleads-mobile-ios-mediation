@@ -177,48 +177,25 @@ completionHandler {
 
 - (void)initIronSourceSDKWithAppKey:(nonnull NSString *)appKey forAdUnits:(nonnull NSSet *)adUnits completionHandler:(nonnull GADMediationAdapterSetUpCompletionBlock)completionHandler {
     
-    NSArray<ISAAdFormat *> *adunitToInit = [self adFormatsToInitializeForAdUnits:adUnits];
+    NSArray<ISAAdFormat *> *adunitToInit = [GADMAdapterIronSourceUtils adFormatsToInitializeForAdUnits:adUnits];
     ISAInitRequestBuilder *requestBuilder = [[[ISAInitRequestBuilder alloc] initWithAppKey: appKey] withLegacyAdFormats: adunitToInit];
     ISAInitRequest *request = [requestBuilder build];
     
     [IronSourceAds initWithRequest: request completion:^(BOOL success, NSError *_Nullable error) {
         if ( !success || error )
         {
-            // TODO: add log
+            [GADMAdapterIronSourceUtils
+                onLog:[NSString stringWithFormat:@"iAds init failed with error reason: %@",
+                       error.localizedDescription]];
             completionHandler(error);
             return;
         }
-        // TODO: add log
-        //[self log: @"IronSource SDK initialized"];
-        
+        [GADMAdapterIronSourceUtils
+            onLog:[NSString stringWithFormat:@"iAds SDK initialized"]];
         completionHandler(nil);
     }];
 }
 
-- (NSArray<ISAAdFormat *> *)adFormatsToInitializeForAdUnits:(nonnull NSSet *)adUnits
-{
-    NSMutableArray<ISAAdFormat *> *adFormatsToInitialize = [NSMutableArray array];
-    
-    if ([adUnits member:IS_INTERSTITIAL] != nil)
-    {
-        ISAAdFormat *interstitial = [[ISAAdFormat alloc] initWithAdFormatType: ISAAdFormatTypeInterstitial];
-        [adFormatsToInitialize addObject: interstitial];
-    }
-    
-    if ([adUnits member:IS_REWARDED_VIDEO] != nil)
-    {
-        ISAAdFormat *rewarded = [[ISAAdFormat alloc] initWithAdFormatType: ISAAdFormatTypeRewarded];
-        [adFormatsToInitialize addObject: rewarded];
-    }
-    
-    if ([adUnits member:IS_BANNER] != nil)
-    {
-        ISAAdFormat *banner = [[ISAAdFormat alloc] initWithAdFormatType: ISAAdFormatTypeBanner];
-        [adFormatsToInitialize addObject: banner];
-    }
-    
-    return [adFormatsToInitialize copy];
-}
 
 
 

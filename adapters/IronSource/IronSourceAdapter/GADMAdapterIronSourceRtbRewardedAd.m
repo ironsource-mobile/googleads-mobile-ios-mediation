@@ -22,66 +22,65 @@
 
 - (void)loadRewardedAdForConfiguration:(GADMediationRewardedAdConfiguration *)adConfiguration
                      completionHandler:
-                         (GADMediationRewardedLoadCompletionHandler)completionHandler {
+(GADMediationRewardedLoadCompletionHandler)completionHandler {
     _rewardedAdLoadCompletionHandler = completionHandler;
-
+    
     NSDictionary *credentials = [adConfiguration.credentials settings];
     NSString *applicationKey = credentials[GADMAdapterIronSourceAppKey];
-      
+    
     if (applicationKey != nil && ![GADMAdapterIronSourceUtils isEmpty:applicationKey]) {
-      applicationKey = credentials[GADMAdapterIronSourceAppKey];
+        applicationKey = credentials[GADMAdapterIronSourceAppKey];
     } else {
-      NSError *error = GADMAdapterIronSourceErrorWithCodeAndDescription(
-          GADMAdapterIronSourceErrorInvalidServerParameters,
-          @"Missing or invalid IronSource application key.");
-
-      _rewardedAdLoadCompletionHandler(nil, error);
-      return;
-    }
-
-    if (credentials[GADMAdapterIronSourceInstanceId]) {
-      self.instanceID = credentials[GADMAdapterIronSourceInstanceId];
-    } else {
-      [GADMAdapterIronSourceUtils onLog:@"Missing or invalid IronSource interstitial ad Instance ID. "
-                                        @"Using the default instance ID."];
-      self.instanceID = GADMIronSourceDefaultInstanceId;
-    }
-
-        NSString *bidResponse = adConfiguration.bidResponse;
-        NSString *watermarkString = [[NSString alloc] initWithData:adConfiguration.watermark encoding:NSUTF8StringEncoding];
-      
-        [IronSource setMetaDataWithKey:@"google_water_mark" value:watermarkString];
+        NSError *error = GADMAdapterIronSourceErrorWithCodeAndDescription(
+                                                                          GADMAdapterIronSourceErrorInvalidServerParameters,
+                                                                          @"Missing or invalid IronSource application key.");
         
-      
-      ISARewardedAdRequest *adRequest = [[[ISARewardedAdRequestBuilder alloc] initWithInstanceId: self.instanceID adm: bidResponse] build];
-      
-      [ISARewardedAdLoader loadAdWithAdRequest: adRequest delegate: self];
-}
-
-- (void)presentFromViewController:(nonnull UIViewController *)viewController {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    [GADMAdapterIronSourceUtils
-        onLog:[NSString stringWithFormat:@"Showing IronSource interstitial ad for Instance ID: %@",
-                                         self.instanceID]];
-    if (!self.biddingISARewardedAd){
-        if (self.rewardedAdEventDelegate){
-            NSError *error = GADMAdapterIronSourceErrorWithCodeAndDescription(
-                                                                              GADMAdapterIronSourceErrorFailedToShow,
-                                                                              @"the ad is nil");
-            [self.rewardedAdEventDelegate didFailToPresentWithError:error];
-        }
-        [GADMAdapterIronSourceUtils
-            onLog:[NSString stringWithFormat:@"Failed to show due to ad not loaded, for Instance ID: %@",
-                                             self.instanceID]];
+        _rewardedAdLoadCompletionHandler(nil, error);
         return;
     }
     
-      [self.biddingISARewardedAd setDelegate:self];
-      [self.biddingISARewardedAd showFromViewController:viewController ];
+    if (credentials[GADMAdapterIronSourceInstanceId]) {
+        self.instanceID = credentials[GADMAdapterIronSourceInstanceId];
+    } else {
+        [GADMAdapterIronSourceUtils onLog:@"Missing or invalid IronSource interstitial ad Instance ID. "
+         @"Using the default instance ID."];
+        self.instanceID = GADMIronSourceDefaultInstanceId;
+    }
+    
+    NSString *bidResponse = adConfiguration.bidResponse;
+    NSMutableDictionary<NSString *, NSString *> *extraParams = [GADMAdapterIronSourceUtils getExtraParamsWithWatermark:adConfiguration.watermark];
+    
+    ISARewardedAdRequest *adRequest = [[[[ISARewardedAdRequestBuilder alloc] initWithInstanceId: self.instanceID adm: bidResponse] withExtraParams:extraParams] build];
+    
+    [ISARewardedAdLoader loadAdWithAdRequest: adRequest delegate: self];
+}
+
+- (void)presentFromViewController:(nonnull UIViewController *)viewController {
+    [GADMAdapterIronSourceUtils onLog:NSStringFromSelector(_cmd)];
+    id<GADMediationRewardedAdEventDelegate> rewardedDelegate = self.rewardedAdEventDelegate;
+
+    if (!self.biddingISARewardedAd){
+        if (rewardedDelegate){
+            NSError *error = GADMAdapterIronSourceErrorWithCodeAndDescription(
+                                                                              GADMAdapterIronSourceErrorFailedToShow,
+                                                                              @"the ad is nil");
+            [rewardedDelegate didFailToPresentWithError:error];
+        }
+        [GADMAdapterIronSourceUtils
+         onLog:[NSString stringWithFormat:@"Failed to show due to ad not loaded, for Instance ID: %@",
+                self.instanceID]];
+        return;
+    }
+    
+    [self.biddingISARewardedAd setDelegate:self];
+    [self.biddingISARewardedAd showFromViewController:viewController ];
 }
 
 - (void)rewardedAdDidLoad:(nonnull ISARewardedAd *)rewardedAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            rewardedAd.adInfo.instanceId,
+            rewardedAd.adInfo.adId]];
     self.biddingISARewardedAd = rewardedAd;
     if (!self.rewardedAdLoadCompletionHandler){
         return;
@@ -91,7 +90,8 @@
 }
 
 - (void)rewardedAdDidFailToLoadWithError:(nonnull NSError *)error {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ with error= %@", NSStringFromSelector(_cmd), error.localizedDescription]];
     if (!self.rewardedAdLoadCompletionHandler){
         return;
     }
@@ -99,53 +99,68 @@
 }
 
 - (void)rewardedAdDidShow:(nonnull ISARewardedAd *)rewardedAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.rewardedAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            rewardedAd.adInfo.instanceId,
+            rewardedAd.adInfo.adId]];
+    id<GADMediationRewardedAdEventDelegate> rewardedDelegate = self.rewardedAdEventDelegate;
+    if (!rewardedDelegate){
         return;
     }
     
-    [self.rewardedAdEventDelegate willPresentFullScreenView];
-    [self.rewardedAdEventDelegate didStartVideo];
-    [self.rewardedAdEventDelegate reportImpression];
+    [rewardedDelegate willPresentFullScreenView];
+    [rewardedDelegate didStartVideo];
+    [rewardedDelegate reportImpression];
 }
 
 - (void)rewardedAd:(nonnull ISARewardedAd *)rewardedAd didFailToShowWithError:(nonnull NSError *)error {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.rewardedAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ with error= %@", NSStringFromSelector(_cmd), error.localizedDescription]];
+    id<GADMediationRewardedAdEventDelegate> rewardedDelegate = self.rewardedAdEventDelegate;
+    if (!rewardedDelegate){
         return;
     }
     
-    [self.rewardedAdEventDelegate didFailToPresentWithError:error];
+    [rewardedDelegate didFailToPresentWithError:error];
 }
 
 - (void)rewardedAdDidClick:(nonnull ISARewardedAd *)rewardedAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.rewardedAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            rewardedAd.adInfo.instanceId,
+            rewardedAd.adInfo.adId]];
+    id<GADMediationRewardedAdEventDelegate> rewardedDelegate = self.rewardedAdEventDelegate;
+    if (!rewardedDelegate){
         return;
     }
     
-    [self.rewardedAdEventDelegate reportClick];
+    [rewardedDelegate reportClick];
 }
 
 - (void)rewardedAdDidDismiss:(nonnull ISARewardedAd *)rewardedAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if (!self.rewardedAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            rewardedAd.adInfo.instanceId,
+            rewardedAd.adInfo.adId]];
+    id<GADMediationRewardedAdEventDelegate> rewardedDelegate = self.rewardedAdEventDelegate;
+    if (!rewardedDelegate){
         return;
     }
-    [self.rewardedAdEventDelegate willDismissFullScreenView];
-    [self.rewardedAdEventDelegate didDismissFullScreenView];
+    [rewardedDelegate willDismissFullScreenView];
+    [rewardedDelegate didDismissFullScreenView];
 }
 
 - (void)rewardedAdDidUserEarnReward:(nonnull ISARewardedAd *)rewardedAd {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    
-    if (!self.rewardedAdEventDelegate){
+    [GADMAdapterIronSourceUtils
+     onLog:[NSString stringWithFormat:@"%@ instanceId= %@ adId= %@", NSStringFromSelector(_cmd),
+            rewardedAd.adInfo.instanceId,
+            rewardedAd.adInfo.adId]];
+    id<GADMediationRewardedAdEventDelegate> rewardedDelegate = self.rewardedAdEventDelegate;
+    if (!rewardedDelegate){
         return;
     }
-    [self.rewardedAdEventDelegate didRewardUser];
-    [self.rewardedAdEventDelegate didEndVideo];
+    [rewardedDelegate didRewardUser];
+    [rewardedDelegate didEndVideo];
 }
-
-
 
 @end
