@@ -33,10 +33,35 @@ public final class MolocoMediationAdapter: NSObject, GADMediationAdapter /*GADRT
   /// The native ad loader.
   private var nativeAdLoader: NativeAdLoader?
 
-  private static var molocoInitializer: MolocoInitializer = MolocoSdkImpl()
+  /// An instance of MolocoSdkImpl. MolocoSdkImpl implements calls to Moloco SDK.
+  private static let molocoSdkImpl = MolocoSdkImpl()
 
-  /// To be used only for testing purpose.
-  public static func setMolocoInitializer(_ fakeMolocoInitializer: MolocoInitializer) {
+  /// Used to initialize the Moloco SDK.
+  private static var molocoInitializer: MolocoInitializer = molocoSdkImpl
+
+  /// Used to create Moloco interstitial ads.
+  private var molocoInterstitialFactory: MolocoInterstitialFactory = MolocoMediationAdapter
+    .molocoSdkImpl
+
+  /// Used to create Moloco rewarded ads.
+  private var molocoRewardedFactory: MolocoRewardedFactory = MolocoMediationAdapter.molocoSdkImpl
+
+  public override init() {
+    // Conform to GADMediationAdapter protocol.
+  }
+
+  /// Initializer used only for testing purpose.
+  init(molocoInterstitialFactory: MolocoInterstitialFactory) {
+    self.molocoInterstitialFactory = molocoInterstitialFactory
+  }
+
+  /// Initializer used only for testing purpose.
+  init(molocoRewardedFactory: MolocoRewardedFactory) {
+    self.molocoRewardedFactory = molocoRewardedFactory
+  }
+
+  /// Setter used only for testing purpose.
+  static func setMolocoInitializer(_ fakeMolocoInitializer: MolocoInitializer) {
     molocoInitializer = fakeMolocoInitializer
   }
 
@@ -52,16 +77,17 @@ public final class MolocoMediationAdapter: NSObject, GADMediationAdapter /*GADRT
       return
     }
 
-    var appIDs = [String]()
-    for credential in configuration.credentials {
-      if let appIDString = credential.settings[MolocoConstants.appIDKey] as? String,
-        !appIDString.isEmpty
-      {
-        appIDs.append(appIDString)
-      }
+    guard !molocoInitializer.isInitialized() else {
+      completionHandler(nil)
+      return
     }
 
-    guard !appIDs.isEmpty else {
+    let appIDs = Set(
+      configuration.credentials.compactMap {
+        $0.settings[MolocoConstants.appIDKey] as? String
+      }.filter { !$0.isEmpty })
+
+    guard let appID = appIDs.first else {
       MolocoUtils.log("Not initializing Moloco SDK because because appId is invalid/missing")
       completionHandler(
         MolocoUtils.error(
@@ -75,22 +101,7 @@ public final class MolocoMediationAdapter: NSObject, GADMediationAdapter /*GADRT
       )
     }
 
-    let appID = appIDs.first
-
-    guard let appID else {
-      completionHandler(
-        MolocoUtils.error(
-          code: MolocoAdapterErrorCode.invalidAppID, description: "Missing/Invalid App ID"))
-      return
-    }
-
     MolocoUtils.log("Initializing Moloco SDK with app ID [\(appID)]")
-
-    // Check it is not already initialized
-    guard !molocoInitializer.isInitialized() else {
-      completionHandler(nil)
-      return
-    }
 
     // Initialize Moloco SDK
     molocoInitializer.initialize(initParams: .init(appKey: appID)) { done, err in
@@ -127,23 +138,25 @@ public final class MolocoMediationAdapter: NSObject, GADMediationAdapter /*GADRT
     bannerAdLoader?.loadAd()
   }
 
-  // TODO: Remove if not needed. If removed, then remove the |InterstitialAdLoader| class as well.
+  @MainActor
   @objc public func loadInterstitial(
     for adConfiguration: GADMediationInterstitialAdConfiguration,
     completionHandler: @escaping GADMediationInterstitialLoadCompletionHandler
   ) {
     interstitialAdLoader = InterstitialAdLoader(
-      adConfiguration: adConfiguration, loadCompletionHandler: completionHandler)
+      adConfiguration: adConfiguration, loadCompletionHandler: completionHandler,
+      molocoInterstitialFactory: molocoInterstitialFactory)
     interstitialAdLoader?.loadAd()
   }
 
-  // TODO: Remove if not needed. If removed, then remove the |RewardedAdLoader| class as well.
+  @MainActor
   @objc public func loadRewardedAd(
     for adConfiguration: GADMediationRewardedAdConfiguration,
     completionHandler: @escaping GADMediationRewardedLoadCompletionHandler
   ) {
     rewardedAdLoader = RewardedAdLoader(
-      adConfiguration: adConfiguration, loadCompletionHandler: completionHandler)
+      adConfiguration: adConfiguration, loadCompletionHandler: completionHandler,
+      molocoRewardedFactory: molocoRewardedFactory)
     rewardedAdLoader?.loadAd()
   }
 

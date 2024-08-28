@@ -14,6 +14,7 @@
 
 import Foundation
 import GoogleMobileAds
+import MolocoSDK
 
 /// Loads and presents rewarded ads on Moloco ads SDK.
 final class RewardedAdLoader: NSObject {
@@ -24,16 +25,45 @@ final class RewardedAdLoader: NSObject {
   /// The ad event delegate which is used to report rewarded related information to the Google Mobile Ads SDK.
   private weak var eventDelegate: GADMediationRewardedAdEventDelegate?
 
+  /// The completion handler to call when the rewarded ad loading succeeds or fails.
+  private let loadCompletionHandler: GADMediationRewardedLoadCompletionHandler
+
+  /// The factory class used to create rewarded ads.
+  private let molocoRewardedFactory: MolocoRewardedFactory
+
+  /// The rewarded ad.
+  private var rewardedAd: MolocoRewardedInterstitial?
+
   init(
     adConfiguration: GADMediationRewardedAdConfiguration,
-    loadCompletionHandler: @escaping GADMediationRewardedLoadCompletionHandler
+    loadCompletionHandler: @escaping GADMediationRewardedLoadCompletionHandler,
+    molocoRewardedFactory: MolocoRewardedFactory
   ) {
     self.adConfiguration = adConfiguration
+    self.loadCompletionHandler = loadCompletionHandler
+    self.molocoRewardedFactory = molocoRewardedFactory
     super.init()
   }
 
-  func loadAd() {
-    // TODO: implement and make sure to call |rewardedAdLoadCompletionHandler| after loading an ad.
+  @MainActor func loadAd() {
+    guard #available(iOS 13.0, *) else {
+      let error = MolocoUtils.error(
+        code: MolocoAdapterErrorCode.adServingNotSupported,
+        description: "Moloco SDK does not support serving ads on iOS 12 and below")
+      _ = loadCompletionHandler(nil, error)
+      return
+    }
+
+    let molocoAdUnitID = MolocoUtils.getAdUnitId(from: adConfiguration)
+    guard let molocoAdUnitID else {
+      let error = MolocoUtils.error(
+        code: MolocoAdapterErrorCode.invalidAdUnitId, description: "Missing required parameter")
+      _ = loadCompletionHandler(nil, error)
+      return
+    }
+
+    self.rewardedAd = self.molocoRewardedFactory.createRewarded(for: molocoAdUnitID, delegate: self)
+    self.rewardedAd?.load(bidResponse: self.adConfiguration.bidResponse ?? "")
   }
 
 }
@@ -49,5 +79,44 @@ extension RewardedAdLoader: GADMediationRewardedAd {
 
 }
 
-// MARK: - <OtherProtocol>
-// TODO: extend and implement any other protocol, if any.
+// MARK: - MolocoRewardedDelegate
+
+extension RewardedAdLoader: MolocoRewardedDelegate {
+
+  func userRewarded(ad: any MolocoSDK.MolocoAd) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+  func rewardedVideoStarted(ad: any MolocoSDK.MolocoAd) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+  func rewardedVideoCompleted(ad: any MolocoSDK.MolocoAd) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+  func didLoad(ad: any MolocoSDK.MolocoAd) {
+    eventDelegate = loadCompletionHandler(self, nil)
+  }
+
+  func failToLoad(ad: any MolocoSDK.MolocoAd, with error: (any Error)?) {
+    _ = loadCompletionHandler(nil, error)
+  }
+
+  func didShow(ad: any MolocoSDK.MolocoAd) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+  func failToShow(ad: any MolocoSDK.MolocoAd, with error: (any Error)?) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+  func didHide(ad: any MolocoSDK.MolocoAd) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+  func didClick(on ad: any MolocoSDK.MolocoAd) {
+    // TODO: b/360350265 - Add implementation.
+  }
+
+}
