@@ -20,7 +20,7 @@ static NSString *const GADMAdapterIronSourceAdapterVersion = @"8.9.1.0.1";
 static NSString *const GADMIronSourceDefaultNonRtbInstanceId = @"0";
 static NSString *const GADMIronSourceDefaultRtbInstanceId = @"";
 
-static NSString *const GADMAdapterIronSourceInternalVersion = @"510";
+static NSString *const GADMAdapterIronSourceInternalVersion = @"511";
 
 // IronSource parameters keys.
 static NSString *const GADMAdapterIronSourceAppKey = @"appKey";
